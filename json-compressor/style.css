@@ -1,0 +1,72 @@
+/* JSON圧縮ツール専用スタイル */
+
+/* コードブロックのスタイル */
+.code-block {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin: 15px 0;
+    overflow-x: auto;
+}
+
+.code-block pre {
+    margin: 0;
+    padding: 15px;
+    background: none;
+    border: none;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #495057;
+}
+
+.code-block code {
+    background: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+}
+
+/* リストのスタイル */
+ul {
+    margin: 10px 0 10px 20px;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 5px;
+    list-style-type: disc;
+    color: #495057;
+}
+
+/* 説明セクションのスタイル */
+section div p {
+    margin-bottom: 15px;
+    color: #495057;
+    line-height: 1.6;
+}
+
+/* hrのスタイル */
+hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #ddd, transparent);
+    margin: 40px 0;
+}
+
+/* strongタグのスタイル */
+strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* インラインコードのスタイル */
+p code {
+    background: #f1f3f4;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    color: #d73a49;
+} 

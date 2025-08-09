@@ -1,0 +1,12 @@
+.code-block {
+    background: #2d3748;
+    border-radius: 8px;
+    padding: 0px 20px;
+    margin: 15px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}        
+.code-block code {
+    color: #a0aec0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+}        

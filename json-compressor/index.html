@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON圧縮/整形ツール - Develop Tools</title>
+    <link rel="stylesheet" href="../common/common.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="../common/utils.js"></script>
+</head>
+<body>
+    <div class="container">        
+        <h1>JSON圧縮 / 整形ツール</h1>
+        
+        <section>
+            <h2>JSONを入力してください:</h2>
+            <textarea id="inputText" placeholder="JSON文字列を入力してください..."></textarea>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="compressJson()">🗜️ JSON圧縮（1行化）</button>
+                <button class="btn btn-primary" onclick="formatJson()">📋 JSON整形</button>
+                <button class="btn btn-secondary" onclick="clearText('inputText,outputText')">🗑️ クリア</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>結果:</h2>
+            <textarea id="outputText" readonly placeholder="結果がここに表示されます..."></textarea>
+            <div class="button-group">
+                <button class="btn btn-copy" onclick="copyToClipboard('outputText')">📋 結果をコピー</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="../common/backToHome.js"></script>
+    <script>
+        const inputText = document.getElementById('inputText');
+        const outputText = document.getElementById('outputText');
+
+        // JSON圧縮（1行化）
+        function compressJson() {
+            const input = inputText.value.trim();
+            if (!input) {
+                showErrorMessage('JSONを入力してください');
+                return;
+            }
+
+            try {
+                // まずJSONとして有効かチェック
+                JSON.parse(input);                
+                let compressed = input
+                    .replace(/\s+/g, '') // 全ての空白文字（スペース、タブ、改行）を削除
+                    .replace(/\\n/g, '') // \n を削除
+                    .replace(/\\\\/g, '\\'); // \\ を \ に変換
+                outputText.value = compressed;
+                showSuccessMessage('JSON圧縮が完了しました！');
+            } catch (error) {
+                try {
+                    let compressed = input
+                        .replace(/\s+/g, '')
+                        .replace(/\\n/g, '')
+                        .replace(/\\\\/g, '\\');
+                    
+                    outputText.value = compressed;
+                    showSuccessMessage('文字列圧縮が完了しました（JSONとして無効な可能性があります）');
+                } catch (err) {
+                    outputText.value = 'エラー: 圧縮に失敗しました';
+                    showErrorMessage('圧縮に失敗しました');
+                }
+            }
+        }
+
+        // JSON整形
+        function formatJson() {
+            const input = inputText.value.trim();
+            if (!input) {
+                showErrorMessage('JSONを入力してください');
+                return;
+            }
+
+            try {
+                // JSONをパースして整形
+                const parsed = JSON.parse(input);
+                const formatted = JSON.stringify(parsed, null, 2);
+                outputText.value = formatted;
+                showSuccessMessage('JSON整形が完了しました！');
+            } catch (error) {
+                outputText.value = 'エラー: 無効なJSON形式です';
+                showErrorMessage('無効なJSON形式です');
+            }
+        }
+    </script>
+</body>
+</html> 

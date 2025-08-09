@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Encode/Decode - Develop Tools</title>
+    <link rel="stylesheet" href="../common/common.css">
+    <script src="../common/utils.js"></script>
+</head>
+<body>
+    <div class="container">        
+        <h1>URL Encode / Decode</h1>
+        
+        <section>
+            <h2>テキストを入力してください:</h2>
+            <textarea id="inputText" placeholder="テキストを入力してください..."></textarea>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="encodeURL()">🔒 URLエンコード</button>
+                <button class="btn btn-primary" onclick="decodeURL()">🔓 URLデコード</button>
+                <button class="btn btn-secondary" onclick="clearText('inputText,outputText')">🗑️ クリア</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>結果:</h2>
+            <textarea id="outputText" readonly placeholder="結果がここに表示されます..."></textarea>
+            <div class="button-group">
+                <button class="btn btn-copy" onclick="copyToClipboard('outputText')">📋 結果をコピー</button>
+                <button class="btn btn-secondary" onclick="swapTexts('inputText', 'outputText')">🔄 入力と結果を交換</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="../common/backToHome.js"></script>
+    <script>
+        const inputText = document.getElementById('inputText');
+        const outputText = document.getElementById('outputText');
+
+        // URLエンコード
+        function encodeURL() {
+            const input = inputText.value;
+            try {
+                const encoded = encodeURIComponent(input);
+                outputText.value = encoded;
+                showSuccessMessage('URLエンコードが完了しました！');
+            } catch (error) {
+                outputText.value = 'エラー: エンコードに失敗しました';
+                showErrorMessage('エンコードに失敗しました');
+            }
+        }
+
+        // URLデコード
+        function decodeURL() {
+            const input = inputText.value;
+            try {
+                const decoded = decodeURIComponent(input);
+                outputText.value = decoded;
+                showSuccessMessage('URLデコードが完了しました！');
+            } catch (error) {
+                outputText.value = 'エラー: デコードに失敗しました（無効なエンコード形式）';
+                showErrorMessage('デコードに失敗しました');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Encode/Decode - Develop Tools</title>
+    <link rel="stylesheet" href="../common/common.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="../common/utils.js"></script>
+</head>
+<body>
+    <div class="container">        
+        <h1>Base64 Encode / Decode</h1>
+        
+        <section>
+            <h2>テキストを入力してください:</h2>
+            <textarea id="inputText" placeholder="テキストを入力してください..."></textarea>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="encodeBase64()">🔒 Base64エンコード</button>
+                <button class="btn btn-primary" onclick="decodeBase64()">🔓 Base64デコード</button>
+                <button class="btn btn-secondary" onclick="clearText('inputText,outputText')">🗑️ クリア</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>結果:</h2>
+            <textarea id="outputText" readonly placeholder="結果がここに表示されます..."></textarea>
+            <div class="button-group">
+                <button class="btn btn-copy" onclick="copyToClipboard('outputText')">📋 結果をコピー</button>
+                <button class="btn btn-secondary" onclick="swapTexts('inputText', 'outputText')">🔄 入力と結果を交換</button>
+            </div>
+        </section>
+
+        <hr>
+        <section>
+            <h2>Base64とは</h2>
+            <div>
+                <p> Base64は、データを64種類の印字可能な英数字のみを用いて、それ以外の文字を扱うことの出来ない通信環境にてマルチバイト文字やバイナリデータを扱うためのエンコード方式です。</p>
+                <p> strong使用文字: <code>a-z A-Z 0-9 + /</code> (64文字) + パディング用の <code>=</code></p>                
+                <p>Linuxでは標準でbase64コマンドが使用できます：</p>                
+                <div class="code-block">
+                    <pre><code>
+echo "abcdefg" | base64 # エンコード
+echo "YWJjZGVmZwo=" | base64 -d # デコード
+base64 ./original.txt > ./encoded.txt # ファイルをエンコード
+base64 -d ./encoded.txt > ./decoded.txt # ファイルをデコード
+                    </code></pre>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="../common/backToHome.js"></script>
+    <script>
+        const inputText = document.getElementById('inputText');
+        const outputText = document.getElementById('outputText');
+
+        // Base64エンコード
+        function encodeBase64() {
+            const input = inputText.value;
+            try {
+                // UTF-8文字列をBase64にエンコード
+                const encoded = btoa(unescape(encodeURIComponent(input)));
+                outputText.value = encoded;
+                showSuccessMessage('Base64エンコードが完了しました！');
+            } catch (error) {
+                outputText.value = 'エラー: エンコードに失敗しました';
+                showErrorMessage('エンコードに失敗しました');
+            }
+        }
+
+        // Base64デコード
+        function decodeBase64() {
+            const input = inputText.value;
+            try {
+                // Base64をUTF-8文字列にデコード
+                const decoded = decodeURIComponent(escape(atob(input)));
+                outputText.value = decoded;
+                showSuccessMessage('Base64デコードが完了しました！');
+            } catch (error) {
+                outputText.value = 'エラー: デコードに失敗しました（無効なBase64形式）';
+                showErrorMessage('デコードに失敗しました');
+            }
+        }
+    </script>
+</body>
+</html> 
