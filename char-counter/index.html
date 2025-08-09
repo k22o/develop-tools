@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字数カウント - Develop Tools</title>
+    <link rel="stylesheet" href="../common/common.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="../common/utils.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>文字数カウント</h1>
+
+        <section>
+            <h2>テキストを入力してください:</h2>
+            <textarea id="inputText" placeholder="テキストを入力してください..."></textarea>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="countCharacters()">🧮 文字数をカウント</button>
+                <button class="btn btn-secondary" onclick="clearText('inputText,outputText')">🗑️ クリア</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>結果:</h2>
+            <textarea id="outputText" readonly placeholder="結果がここに表示されます..."></textarea>
+            <div class="button-group">
+                <button class="btn btn-copy" onclick="copyToClipboard('outputText')">📋 結果をコピー</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="../common/backToHome.js"></script>
+    <script>
+        const inputText = document.getElementById('inputText');
+        const outputText = document.getElementById('outputText');
+
+        function countCharacters() {
+            const input = inputText.value;
+            if (!input || input.trim().length === 0) {
+                showErrorMessage('テキストを入力してください');
+                return;
+            }
+
+            const chars = Array.from(input);
+            const charsWithoutSpaces = Array.from(input.replace(/\s/g, ''));
+            const byteLength = new TextEncoder().encode(input).length;
+            const lines = input.length === 0 ? 0 : input.split(/\r?\n/).length;
+
+            const result = [
+                `文字数: ${chars.length}`,
+                `文字数（空白除く）: ${charsWithoutSpaces.length}`,
+                `行数: ${lines}`,
+                `バイト数（UTF-8）: ${byteLength}`
+            ].join('\n');
+
+            outputText.value = result;
+            showSuccessMessage('カウントが完了しました！');
+        }
+    </script>
+</body>
+</html> 
