@@ -16,9 +16,9 @@
             <h2>テキストを入力してください:</h2>
             <textarea id="inputText" placeholder="テキストを入力してください..."></textarea>
             <div class="button-group">
-                <button class="btn btn-primary" onclick="encodeBase64()">🔒 Base64エンコード</button>
-                <button class="btn btn-primary" onclick="decodeBase64()">🔓 Base64デコード</button>
-                <button class="btn btn-secondary" onclick="clearText('inputText,outputText')">🗑️ クリア</button>
+                <button class="btn btn-primary" onclick="TOOL.base64.encodeBase64()">🔒 Base64エンコード</button>
+                <button class="btn btn-primary" onclick="TOOL.base64.decodeBase64()">🔓 Base64デコード</button>
+                <button class="btn btn-secondary" onclick="TOOL.common.clearText('inputText,outputText')">🗑️ クリア</button>
             </div>
         </section>
 
@@ -26,8 +26,8 @@
             <h2>結果:</h2>
             <textarea id="outputText" readonly placeholder="結果がここに表示されます..."></textarea>
             <div class="button-group">
-                <button class="btn btn-copy" onclick="copyToClipboard('outputText')">📋 結果をコピー</button>
-                <button class="btn btn-secondary" onclick="swapTexts('inputText', 'outputText')">🔄 入力と結果を交換</button>
+                <button class="btn btn-copy" onclick="TOOL.common.copyToClipboard('outputText')">📋 結果をコピー</button>
+                <button class="btn btn-secondary" onclick="TOOL.common.swapTexts('inputText', 'outputText')">🔄 入力と結果を交換</button>
             </div>
         </section>
 
@@ -50,38 +50,9 @@ base64 -d ./encoded.txt > ./decoded.txt # ファイルをデコード
         </section>
     </div>
 
+    <script src="../common/utils.js"></script>
     <script src="../common/backToHome.js"></script>
-    <script>
-        const inputText = document.getElementById('inputText');
-        const outputText = document.getElementById('outputText');
+    <script src="./main.js"></script>
 
-        // Base64エンコード
-        function encodeBase64() {
-            const input = inputText.value;
-            try {
-                // UTF-8文字列をBase64にエンコード
-                const encoded = btoa(unescape(encodeURIComponent(input)));
-                outputText.value = encoded;
-                showSuccessMessage('Base64エンコードが完了しました！');
-            } catch (error) {
-                outputText.value = 'エラー: エンコードに失敗しました';
-                showErrorMessage('エンコードに失敗しました');
-            }
-        }
-
-        // Base64デコード
-        function decodeBase64() {
-            const input = inputText.value;
-            try {
-                // Base64をUTF-8文字列にデコード
-                const decoded = decodeURIComponent(escape(atob(input)));
-                outputText.value = decoded;
-                showSuccessMessage('Base64デコードが完了しました！');
-            } catch (error) {
-                outputText.value = 'エラー: デコードに失敗しました（無効なBase64形式）';
-                showErrorMessage('デコードに失敗しました');
-            }
-        }
-    </script>
 </body>
 </html> 
