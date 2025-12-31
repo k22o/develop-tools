@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Encode/Decode - Develop Tools</title>
+    <link rel="stylesheet" href="../common/common.css">
+</head>
+<body>
+    <div class="container">        
+        <h1>HTML Escape</h1>
+        
+        <section>
+            <h2>テキストを入力してください:</h2>
+            <textarea id="inputText" placeholder="テキストを入力してください..."></textarea>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="TOOL.htmlEscape.escape()">🔒 エスケープする</button>
+                <button class="btn btn-primary" onclick="TOOL.htmlEscape.unescape()">🔓 エスケープを戻す</button>
+                <button class="btn btn-secondary" onclick="TOOL.common.clearText('inputText,outputText')">🗑️ クリア</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>結果:</h2>
+            <textarea id="outputText" readonly placeholder="結果がここに表示されます..."></textarea>
+            <div class="button-group">
+                <button class="btn btn-copy" onclick="TOOL.common.copyToClipboard('outputText')">📋 結果をコピー</button>
+                <button class="btn btn-secondary" onclick="TOOL.common.swapTexts('inputText', 'outputText')">🔄 入力と結果を交換</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="../common/utils.js"></script>
+    <script src="../common/backToHome.js"></script>
+    <script src="./main.js"></script>
+
+</body>
+</html>
